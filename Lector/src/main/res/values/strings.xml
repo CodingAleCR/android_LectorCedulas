@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AVB Lector CedulasCR</string>
+    <string name="app_name">LabScanner</string>
     <string name="startScan">Scanear</string>
+    <string name="startFingerScan">Huella</string>
     <string name="turn_on_flashlight">Enceder Luz</string>
     <string name="turn_off_flashlight">Apagar Luz</string>
+    <string name="instructions">Pon tu dedo en el lector de huellas para verificar tu identidad.</string>
+    <string name="title_activity_finger_print">FingerPrintActivity</string>
 
 </resources>

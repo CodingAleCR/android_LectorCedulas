@@ -12,6 +12,8 @@ public class Persona {
     private char genero;
     private String fechaNacimiento;
     private String fechaVencimiento;
+    private String huella1;
+    private String huella2;
 
     Persona() {
 
@@ -76,6 +78,23 @@ public class Persona {
     public String getFechaVencimiento() {
         return this.fechaVencimiento;
     }
+
+    public String getHuella1() {
+        return huella1;
+    }
+
+    public void setHuella1(String huella1) {
+        this.huella1 = huella1;
+    }
+
+    public String getHuella2() {
+        return huella2;
+    }
+
+    public void setHuella2(String huella2) {
+        this.huella2 = huella2;
+    }
+
     @Override
     public String toString(){
         return this.cedula +" "+

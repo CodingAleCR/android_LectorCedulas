@@ -10,23 +10,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnScan"
-        android:layout_width="142dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="scanBarcode"
-        style="@android:style/Widget.Button"
-        android:text="@string/startScan" />
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/ver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnScan"
+            style="@android:style/Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:onClick="scanBarcode"
+            android:text="@string/startScan" />
+
+        <Button
+            android:id="@+id/btnFingerScan"
+            style="@android:style/Widget.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:onClick="scanFingerprint"
+            android:text="@string/startFingerScan" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lista"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
