@@ -47,15 +47,15 @@ public class CedulaCR {
             char c = (char) (keysArray[j] ^ ((char) (raw[i])));
             String normalRegex = "^[a-zA-Z0-9]*$";
 
-            if (i < 108) {
+//            if (i < 108) {
                 if ((c + "").matches(normalRegex)) {
                     d.append(c);
                 } else {
                     d.append(' ');
                 }
-            } else {
-                d.append(c);
-            }
+//            } else {
+//                d.append(c);
+//            }
 
             j++;
         }
