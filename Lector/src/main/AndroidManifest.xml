@@ -12,11 +12,11 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme"
         android:label="@string/app_name">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +27,7 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".FingerPrintActivity"
-            android:theme="@style/AppTheme" />
+            android:name=".FingerPrintActivity"/>
     </application>
 
 </manifest>

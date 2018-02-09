@@ -12,21 +12,23 @@ public class Persona {
     private char genero;
     private String fechaNacimiento;
     private String fechaVencimiento;
-    private String huella1;
-    private String huella2;
+    private byte[] huella1;
+    private byte[] huella2;
 
     Persona() {
 
     }
 
-    Persona(String _ced, String _nom, String _ape1, String _ape2,char _gen, String _fecN,String _fecV){
-        this.cedula = _ced;
-        this.nombre = _nom;
-        this.apellido1 = _ape1;
-        this.apellido2 = _ape2;
-        this.genero = _gen;
-        this.fechaNacimiento = _fecN;
-        this.fechaVencimiento = _fecV;
+    public Persona(String cedula, String nombre, String apellido1, String apellido2, char genero, String fechaNacimiento, String fechaVencimiento, byte[] huella1, byte[] huella2) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.genero = genero;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaVencimiento = fechaVencimiento;
+        this.huella1 = huella1;
+        this.huella2 = huella2;
     }
 
     public void setCedula(String _ced) {
@@ -79,19 +81,19 @@ public class Persona {
         return this.fechaVencimiento;
     }
 
-    public String getHuella1() {
+    public byte[] getHuella1() {
         return huella1;
     }
 
-    public void setHuella1(String huella1) {
+    public void setHuella1(byte[] huella1) {
         this.huella1 = huella1;
     }
 
-    public String getHuella2() {
+    public byte[] getHuella2() {
         return huella2;
     }
 
-    public void setHuella2(String huella2) {
+    public void setHuella2(byte[] huella2) {
         this.huella2 = huella2;
     }
 

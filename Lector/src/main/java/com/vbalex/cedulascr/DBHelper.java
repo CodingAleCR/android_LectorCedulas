@@ -9,20 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by alex on 2/19/17.
  */
-
 
 
 public class DBHelper extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
-    private static final String DATABASE_NAME = "personas";
+    private static final String DATABASE_NAME = "labscanner";
 
     // Contacts table name
     private static final String TABLE_NAME = "personas";
@@ -35,6 +35,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_GENERO = "g";
     private static final String KEY_F_NACIMIENTO = "fn";
     private static final String KEY_F_VENCIMIENTO = "fv";
+    private static final String KEY_PRINT1 = "dedo1";
+    private static final String KEY_PRINT2 = "dedo2";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,12 +47,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + KEY_ID + " TEXT," +
-                KEY_NOMBRE + " TEXT,"+
-                KEY_APELLIDO1 + " TEXT,"+
-                KEY_APELLIDO2 + " TEXT,"+
-                KEY_GENERO + " TEXT,"+
-                KEY_F_NACIMIENTO + " TEXT,"+
-                KEY_F_VENCIMIENTO + " TEXT" + ")";
+                KEY_NOMBRE + " TEXT," +
+                KEY_APELLIDO1 + " TEXT," +
+                KEY_APELLIDO2 + " TEXT," +
+                KEY_GENERO + " TEXT," +
+                KEY_F_NACIMIENTO + " TEXT," +
+                KEY_F_VENCIMIENTO + " TEXT," +
+                KEY_PRINT1 + " BLOB," +
+                KEY_PRINT2 + " BLOB" +
+                ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -67,11 +72,13 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_ID, p.getCedula()); // Contact Name
         values.put(KEY_NOMBRE, p.getNombre()); // Contact Phone
-        values.put(KEY_APELLIDO1,p.getApellido1());
-        values.put(KEY_APELLIDO2,p.getApellido2());
-        values.put(KEY_GENERO,""+p.getGenero());
-        values.put(KEY_F_NACIMIENTO,p.getFechaNacimiento());
-        values.put(KEY_F_VENCIMIENTO,p.getFechaVencimiento());
+        values.put(KEY_APELLIDO1, p.getApellido1());
+        values.put(KEY_APELLIDO2, p.getApellido2());
+        values.put(KEY_GENERO, "" + p.getGenero());
+        values.put(KEY_F_NACIMIENTO, p.getFechaNacimiento());
+        values.put(KEY_F_VENCIMIENTO, p.getFechaVencimiento());
+        values.put(KEY_PRINT1, p.getHuella1());
+        values.put(KEY_PRINT2, p.getHuella2());
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
@@ -79,30 +86,33 @@ public class DBHelper extends SQLiteOpenHelper {
     Persona get(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] {
-                KEY_ID,
-                KEY_NOMBRE,
-                KEY_APELLIDO1,
-                KEY_APELLIDO2,
-                KEY_GENERO,
-                KEY_F_NACIMIENTO,
-                KEY_F_VENCIMIENTO
-        }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[]{
+                        KEY_ID,
+                        KEY_NOMBRE,
+                        KEY_APELLIDO1,
+                        KEY_APELLIDO2,
+                        KEY_GENERO,
+                        KEY_F_NACIMIENTO,
+                        KEY_F_VENCIMIENTO,
+                        KEY_PRINT1,
+                        KEY_PRINT2
+                }, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Persona p = new Persona(
+        // return contact
+        return new Persona(
                 cursor.getString(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4).charAt(0),
                 cursor.getString(5),
-                cursor.getString(6)
+                cursor.getString(6),
+                cursor.getBlob(7),
+                cursor.getBlob(8)
         );
-        // return contact
-        return p;
     }
 
     public List<Persona> getAll() {
@@ -121,7 +131,9 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getString(3),
                         cursor.getString(4).charAt(0),
                         cursor.getString(5),
-                        cursor.getString(6)
+                        cursor.getString(6),
+                        cursor.getBlob(7),
+                        cursor.getBlob(8)
                 );
                 list.add(p);
             } while (cursor.moveToNext());
@@ -133,7 +145,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void delete(Persona p) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, KEY_ID + " = ?",
-                new String[] { String.valueOf(p.getCedula()) });
+                new String[]{String.valueOf(p.getCedula())});
         db.close();
     }
 
